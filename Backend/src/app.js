@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import { connectToSocket } from './controllers/socketManger.js';
 import cors from 'cors';
 import userRoutes from './routes/usersroutes.js';
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const server = createServer(app);
@@ -22,8 +24,8 @@ app.get("/home", (req, res) => {
 });
 
 const start = async () => {
-    const connectiondb = await mongoose.connect("mongodb://abhishekrathore_user:abhi11@ac-n7a7j3u-shard-00-00.6jkoo72.mongodb.net:27017,ac-n7a7j3u-shard-00-01.6jkoo72.mongodb.net:27017,ac-n7a7j3u-shard-00-02.6jkoo72.mongodb.net:27017/?ssl=true&replicaSet=atlas-9y8bzk-shard-0&authSource=admin&appName=Cluster0");
-
+    const connectiondb = await mongoose.connect(process.env.MONGO_URI);
+    
     console.log("Database connected successfully");
   server.listen(app.get("port"), () => {
         console.log("Server is running on port 8000");
